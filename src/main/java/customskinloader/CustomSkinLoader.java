@@ -27,7 +27,7 @@ import customskinloader.utils.MinecraftUtil;
 /**
  * Custom skin loader mod for Minecraft.
  *
- * @author (C) Jeremy Lam [JLChnToZ] 2013-2014 & Alexander Xia [xfl03] 2014-2020
+ * @author (C) Jeremy Lam [JLChnToZ] 2013-2014 & Alexander Xia [xfl03] 2014-2022
  * @version @MOD_FULL_VERSION@
  */
 public class CustomSkinLoader {
@@ -58,7 +58,7 @@ public class CustomSkinLoader {
         }
         return t;
     };
-    //Thread pool will discard oldest task when queue reaches 333 tasks
+    //Thread pool will discard the oldest task when queue reaches 333 tasks
     private static final ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
             config.threadPoolSize, config.threadPoolSize, 1L, TimeUnit.MINUTES,
             new LinkedBlockingQueue<>(333), customFactory, new ThreadPoolExecutor.DiscardOldestPolicy()
@@ -227,7 +227,7 @@ public class CustomSkinLoader {
         logger.info("Operating System: " + System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version"));
         logger.info("Java Version: " + System.getProperty("java.version") + ", " + System.getProperty("java.vendor"));
         logger.info("Java VM Version: " + System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor"));
-        logger.info("Minecraft: " + MinecraftUtil.getMinecraftMainVersion());
+        logger.info("Minecraft: " + MinecraftUtil.getMinecraftMainVersion() + "Legacy Fabric");
         return logger;
     }
 }
