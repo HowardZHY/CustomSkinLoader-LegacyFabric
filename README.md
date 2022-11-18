@@ -10,6 +10,9 @@ see https://github.com/xfl03/MCCustomSkinLoader
 
 ## Plan: 
 14.14 - 1.8-1.12.2 Done
+
 14.6a - 1.7.10 WIP
+
 12.9 - 1.6.4 Planning
-8.? - 1.5.2 and below Planning
+
+8.X and Below - 1.5.2 and below Planning
