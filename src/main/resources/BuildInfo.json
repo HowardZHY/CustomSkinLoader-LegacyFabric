@@ -1,0 +1,8 @@
+{
+  "name": "CustomSkinLoader",
+  "version": "14.6a-LF",
+  "fullVersion": "${modFullVersion}",
+  "mcVersion": "1.7.10",
+  "mcFullVersions": "${mcFullVersions}",
+  "fabricVersion": "0.14.9",
+}
