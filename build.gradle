@@ -1,4 +1,5 @@
 plugins {
+
 	id 'fabric-loom' version "1.0-SNAPSHOT" // To use chocoloom, change the version to a commit hash
 	id 'maven-publish'
 }
@@ -72,9 +73,6 @@ java {
 }
 
 jar {
-	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}" }
-	}
 }
 
 // configure the maven publication
