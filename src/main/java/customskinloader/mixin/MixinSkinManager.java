@@ -25,9 +25,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.minecraft.client.texture.PlayerSkinProvider.field_8114;
+import static net.minecraft.client.texture.PlayerSkinProvider.*;
 
 @Mixin(PlayerSkinProvider.class)
 public class MixinSkinManager {
@@ -67,24 +66,24 @@ public class MixinSkinManager {
     @Overwrite
     public Identifier method_7045(MinecraftProfileTexture minecraftProfileTexture, MinecraftProfileTexture.Type type, class_1890 arg) {
         customskinloader.utils.HttpTextureUtil.HttpTextureInfo info = customskinloader.utils.HttpTextureUtil.toHttpTextureInfo(minecraftProfileTexture.getUrl());
-        final Identifier var4 = new Identifier("skins/" + info.hash);//Modified
+        final Identifier var4 = new Identifier("skins/" + info.hash); //Modified
         Texture var5 = this.field_8116.getTexture(var4);
         if (var5 != null) {
             if (arg != null) {
                 arg.method_7047(type, var4);
             }
         } else {
-            final BufferedImageSkinProvider var8 = type == MinecraftProfileTexture.Type.SKIN ? new customskinloader.renderer.SkinBuffer() : null;//Modified
-            PlayerSkinTexture var9 = new PlayerSkinTexture(info.cacheFile, info.url, field_8114, new BufferedImageSkinProvider()//Modified
+            final BufferedImageSkinProvider var8 = type == MinecraftProfileTexture.Type.SKIN ? new customskinloader.renderer.SkinBuffer() : null; //Modified
+            PlayerSkinTexture var9 = new PlayerSkinTexture(info.cacheFile, info.url, field_8114, new BufferedImageSkinProvider() //Modified
             {
-                public BufferedImage parseSkin(BufferedImage p_78432_1_)
+                public BufferedImage parseSkin(BufferedImage image)
                 {
                     if (var8 != null)
                     {
-                        p_78432_1_ = var8.parseSkin(p_78432_1_);
+                        image = var8.parseSkin(image);
                     }
 
-                    return p_78432_1_;
+                    return image;
                 }
                 public void setAvailable()
                 {
@@ -115,8 +114,8 @@ public class MixinSkinManager {
             var1.putAll(customskinloader.CustomSkinLoader.loadProfile(profile));
         }else{
             try{
-                var1.putAll(this.sessionService.getTextures(profile, bl));
-            }catch(InsecureTextureException var3){}
+                var1.putAll(this.sessionService.getTextures(profile, bl));}
+            catch (InsecureTextureException var3){}
         }
     }
 

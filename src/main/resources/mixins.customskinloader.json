@@ -3,7 +3,7 @@
   "mixinPriority": 1010,
   "package": "customskinloader.mixin",
   "client": [
-    "MixinSkinManager",
+    "MixinSkinManager"
   ],
   "refmap": "customskinloader-refmap.json",
   "injectors": {

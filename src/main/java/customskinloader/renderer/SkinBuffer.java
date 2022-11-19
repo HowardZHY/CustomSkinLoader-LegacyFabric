@@ -5,8 +5,9 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.awt.image.ImageObserver;
+import net.minecraft.client.render.BufferedImageSkinProvider;
 
-public class SkinBuffer implements net.minecraft.client.render.BufferedImageSkinProvider {
+public class SkinBuffer implements BufferedImageSkinProvider {
 
 	private int[] imageData;
 	private int ratio=1;
