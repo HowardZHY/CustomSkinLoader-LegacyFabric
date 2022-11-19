@@ -31,5 +31,5 @@ jobs:
         uses: actions/upload-artifact@v3.0.0
         with:
           # Artifact name
-          name: customskinloader-14.6a-LF-1.7.10
+          name: build
           path: build/libs/customskinloader-14.6a-LF-1.7.10.jar
