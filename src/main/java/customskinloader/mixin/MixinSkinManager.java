@@ -52,7 +52,7 @@ public class MixinSkinManager {
 
     @Inject(
         method = "<init>",
-        at = @At("RETURN")
+        at = @At("TAIL")
     )
     private void inject_init(TextureManager textureManager, File file, MinecraftSessionService minecraftSessionService, CallbackInfo ci) {
         customskinloader.loader.MojangAPILoader.defaultSessionService=sessionService;
