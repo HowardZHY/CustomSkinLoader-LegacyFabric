@@ -33,11 +33,11 @@ public class CustomSkinLoader {
 			CONFIG_FILE=new File(DATA_DIR,"CustomSkinLoader.json");
 	public static final SkinSiteProfile[] DEFAULT_LOAD_LIST={
 			SkinSiteProfile.createMojangAPI("Mojang"),
-			SkinSiteProfile.createCustomSkinAPI("BlessingSkin","http://skin.prinzeugen.net/"),
-			SkinSiteProfile.createCustomSkinAPI("LittleSkin","http://littleskin.cn/csl/"),
+			SkinSiteProfile.createCustomSkinAPI("BlessingSkin","https://skin.prinzeugen.net/"),
+			SkinSiteProfile.createCustomSkinAPI("LittleSkin","https://littleskin.cn/csl/"),
 			//Minecrack could not load skin correctly
 			//SkinSiteProfile.creatLegacy("Minecrack","http://minecrack.fr.nf/mc/skinsminecrackd/{USERNAME}.png","http://minecrack.fr.nf/mc/cloaksminecrackd/{USERNAME}.png",null),
-			SkinSiteProfile.createUniSkinAPI("SkinMe","http://www.skinme.cc/uniskin/"),
+			SkinSiteProfile.createUniSkinAPI("SkinMe","https://www.skinme.cc/uniskin/"),
 			SkinSiteProfile.createLegacy("LocalSkin","LocalSkin/skins/{USERNAME}.png","LocalSkin/capes/{USERNAME}.png","LocalSkin/elytras/{USERNAME}.png")};
 	
 	public static final Gson GSON=new GsonBuilder().setPrettyPrinting().create();
