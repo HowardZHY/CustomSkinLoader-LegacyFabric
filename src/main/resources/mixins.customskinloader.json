@@ -1,0 +1,19 @@
+{
+  "compatibilityLevel": "JAVA_8",
+  "mixinPriority": 1010,
+  "package": "customskinloader.mixin",
+  "client": [
+    "MixinAbstractClientPlayer",
+    "MixinIResource",
+    "MixinIResourceManager",
+    "MixinMinecraft",
+    "MixinSkinManager",
+    "MixinSkinManager$SkinAvailableCallback",
+    "MixinTextureManager",
+    "MixinThreadDownloadImageDataV1"
+  ],
+  "refmap": "customskinloader-refmap.json",
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
