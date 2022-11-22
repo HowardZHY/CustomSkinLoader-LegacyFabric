@@ -32,4 +32,4 @@ jobs:
         with:
           # Artifact name
           name: build
-          path: build/libs/customskinloader-14.6a-LF-1.7.10.jar
+          path: build/libs/customskinloader-14.14-LF-1.7.10.jar
