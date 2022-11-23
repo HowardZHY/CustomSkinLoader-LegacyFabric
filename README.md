@@ -14,8 +14,9 @@ CSLVersion MCVersion Supported
 
 14.14 1.8-1.12.2  Yes
 
-14.14 1.7.10  Yes
-(with codes from https://github.com/ZekerZhayard/CompatibilityLayerForCustomSkinLoader)
+14.14 1.7.10      Yes
+  (with codes from https://github.com/ZekerZhayard/CompatibilityLayerForCustomSkinLoader)
 
 12.9 and below  1.6.4 and below No
+
 If you really want very old CSL to be Installed on Legacy Fabric, delete .fabric folder and drag CSL files into the Vanilla jar.
