@@ -10,12 +10,12 @@ see https://github.com/xfl03/MCCustomSkinLoader
 
 ## Versions: 
 
-14.14 - 1.8-1.12.2 Done
+CSLVersion MCVersion Supported
 
-14.14 - 1.7.10 Done
+14.14 1.8-1.12.2  Yes
+
+14.14 1.7.10  Yes
 (with codes from https://github.com/ZekerZhayard/CompatibilityLayerForCustomSkinLoader)
 
-12.9 - 1.6.4 WIP
-
-8.X and Below - 1.5.2 and below Planning
-
+12.9 and below  1.6.4 and below No
+If you really want very old CSL to be Installed on Legacy Fabric, delete .fabric folder and drag CSL files into the Vanilla jar.
