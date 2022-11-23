@@ -19,4 +19,4 @@ CSLVersion MCVersion Supported
 
 12.9 and below  1.6.4 and below No
 
-If you really want very old CSL to be Installed on Legacy Fabric, delete .fabric folder and drag CSL files into the Vanilla jar.
+If you really want very old CSL to be Installed on Legacy Fabric, delete .fabric folder and drag CSL files into the Vanilla jar then launch LF.
