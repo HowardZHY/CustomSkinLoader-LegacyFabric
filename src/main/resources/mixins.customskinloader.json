@@ -3,14 +3,12 @@
   "mixinPriority": 1020,
   "package": "customskinloader.mixin",
   "client": [
-    "MixinGuiPlayerTabOverlay",
     "MixinIResource",
     "MixinIResourceManager",
     "MixinMinecraft",
     "MixinPlayerMenuObject",
     "MixinSkinManager",
     "MixinSkinManager$3",
-    "MixinSkinManager$3$1",
     "MixinThreadDownloadImageDataV1"
   ],
   "refmap": "customskinloader-refmap.json",

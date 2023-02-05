@@ -8,8 +8,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(GuiPlayerTabOverlay.class)
 @SuppressWarnings("target")
+@Deprecated // avoid mod confilict
 public abstract class MixinGuiPlayerTabOverlay {
-    @Redirect(
+    /*@Redirect(
         method = {
                 "renderPlayerlist(ILnet/minecraft/scoreboard/Scoreboard;Lnet/minecraft/scoreboard/ScoreObjective;)V"
         },
@@ -20,5 +21,5 @@ public abstract class MixinGuiPlayerTabOverlay {
     )
     private boolean redirect_renderPlayerlist(Minecraft mc) {
         return true;
-    }
+    }*/
 }
