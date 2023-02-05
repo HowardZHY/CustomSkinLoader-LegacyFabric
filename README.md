@@ -12,7 +12,7 @@ see https://github.com/xfl03/MCCustomSkinLoader
 
 CSLVersion MCVersion Supported
 
-14.14 1.8-1.12.2  Yes
+14.15.2 1.8.2-1.12.2  Yes
 
 14.14 1.7.10      Yes
   (with codes from https://github.com/ZekerZhayard/CompatibilityLayerForCustomSkinLoader)
