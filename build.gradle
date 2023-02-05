@@ -78,6 +78,7 @@ java {
 }
 
 jar {
+	exclude 'net/minecraft/client/**.class'
 	manifest {
 		attributes([
 				"Specification-Title"     : "CustomSkinLoader-LegacyFabric",
