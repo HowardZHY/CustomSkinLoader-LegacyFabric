@@ -9,33 +9,13 @@ import customskinloader.fake.texture.FakeBufferedImage;
 import customskinloader.fake.texture.FakeImage;
 import customskinloader.fake.texture.FakeNativeImage;
 import net.minecraft.client.renderer.IImageBuffer;
-import net.minecraft.client.renderer.texture.NativeImage;
 
 public class FakeSkinBuffer implements IImageBuffer {
     private int ratio = 1;
     FakeImage image = null;
 
     //parseUserSkin for 1.15+
-    public static NativeImage processLegacySkin(NativeImage image, Runnable processTask, Function<NativeImage, NativeImage> processLegacySkin) {
-        if (processTask instanceof IImageBuffer) {
-            return ((IImageBuffer) processTask).func_195786_a(image);
-        }
-        return processLegacySkin.apply(image);
-    }
-
     //parseUserSkin for 1.13+
-    public NativeImage func_195786_a(NativeImage image) {
-        if (image == null)
-            return null;
-
-        FakeImage img = parseUserSkin(new FakeNativeImage(image));
-        if (img instanceof FakeNativeImage)
-            return ((FakeNativeImage) img).getImage();
-
-        CustomSkinLoader.logger.warning("Failed to parseUserSkin(func_195786_a).");
-        return null;
-    }
-
     //parseUserSkin for 1.12.2-
     public BufferedImage parseUserSkin(BufferedImage image) {
         if (image == null)

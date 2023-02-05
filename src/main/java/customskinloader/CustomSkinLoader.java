@@ -33,9 +33,9 @@ import customskinloader.utils.MinecraftUtil;
  * @version @MOD_FULL_VERSION@
  */
 public class CustomSkinLoader {
-    public static final String CustomSkinLoader_VERSION = "@MOD_VERSION@";
-    public static final String CustomSkinLoader_FULL_VERSION = "@MOD_FULL_VERSION@";
-    public static final int CustomSkinLoader_BUILD_NUMBER = Integer.parseInt("@MOD_BUILD_NUMBER@");
+    public static final String CustomSkinLoader_VERSION = "14.15b-LF";
+    public static final String CustomSkinLoader_FULL_VERSION = "14.15.2-LF";
+    public static final int CustomSkinLoader_BUILD_NUMBER = Integer.parseInt("0");
 
     public static final File
             DATA_DIR = new File(MinecraftUtil.getMinecraftDataDir(), "CustomSkinLoader"),
@@ -61,7 +61,7 @@ public class CustomSkinLoader {
         }
         return t;
     };
-    //Thread pool will discard oldest task when queue reaches 333 tasks
+    //Thread pool will discard the oldest task when queue reaches 333 tasks
     private static final ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
             config.threadPoolSize, config.threadPoolSize, 1L, TimeUnit.MINUTES,
             new LinkedBlockingQueue<>(333), customFactory, new ThreadPoolExecutor.DiscardOldestPolicy()

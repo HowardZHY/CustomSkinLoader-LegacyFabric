@@ -15,13 +15,13 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(SkinManager$3.class)
 public abstract class MixinSkinManager$3 {
     @Redirect(
-        method = "Lnet/minecraft/client/resources/SkinManager$3;run()V",
-        at = @At(
-            value = "INVOKE",
-            target = "Lcom/mojang/authlib/minecraft/MinecraftSessionService;getTextures(Lcom/mojang/authlib/GameProfile;Z)Ljava/util/Map;",
-            ordinal = 0,
-            remap = false
-        )
+            method = "Lnet/minecraft/client/resources/SkinManager$3;run()V",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/mojang/authlib/minecraft/MinecraftSessionService;getTextures(Lcom/mojang/authlib/GameProfile;Z)Ljava/util/Map;",
+                    ordinal = 0,
+                    remap = false
+            )
     )
     private Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> redirect_run(MinecraftSessionService sessionService, GameProfile profile, boolean requireSecure) {
         return FakeSkinManager.getUserProfile(sessionService, profile, requireSecure);

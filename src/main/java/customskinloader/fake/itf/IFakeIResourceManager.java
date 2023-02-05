@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.resources.IResource;
+import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
 
 public interface IFakeIResourceManager {

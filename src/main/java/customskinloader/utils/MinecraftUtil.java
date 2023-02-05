@@ -21,7 +21,7 @@ import net.minecraft.client.resources.SkinManager;
  */
 public class MinecraftUtil {
     public static File getMinecraftDataDir() {
-        return Minecraft.getMinecraft().gameDir;
+        return Minecraft.getMinecraft().mcDataDir;
     }
 
     public static TextureManager getTextureManager() {

@@ -1,7 +1,7 @@
 package customskinloader.fake.itf;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.IResourceManager;
+import net.minecraft.client.resources.IResourceManager;
 
 public interface IFakeMinecraft {
     // 1.13.2+

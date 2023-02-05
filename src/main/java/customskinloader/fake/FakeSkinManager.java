@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.IImageBuffer;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.SkinManager;
 import net.minecraft.client.resources.SkinManager.SkinAvailableCallback;
+import net.minecraft.client.texture.NativeImage;
 import net.minecraft.util.ResourceLocation;
 
 public class FakeSkinManager {
@@ -86,7 +87,7 @@ public class FakeSkinManager {
     }
 
     /**
-     * Invoked from {@link SkinManager#lambda$loadProfileTextures$1(GameProfile, boolean, SkinAvailableCallback)}
+     * Invoked from {SkinManager#lambda$loadProfileTextures$1(GameProfile, boolean, SkinAvailableCallback)}
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public static Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> getUserProfile(MinecraftSessionService sessionService, GameProfile profile, boolean requireSecure) {
@@ -95,7 +96,7 @@ public class FakeSkinManager {
     }
 
     /**
-     * Invoked from {@link SkinManager#lambda$null$0(Map, SkinAvailableCallback)}
+     * Invoked from {SkinManager#lambda$null$0(Map, SkinAvailableCallback)}
      */
     public static void loadElytraTexture(SkinManager skinManager, Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> map, SkinManager.SkinAvailableCallback skinAvailableCallback) {
         for (int i = 2; i < MinecraftProfileTexture.Type.values().length; i++) {
@@ -150,10 +151,6 @@ public class FakeSkinManager {
             this.type = type;
             this.location = location;
             this.texture = texture;
-        }
-
-        public net.minecraft.client.renderer.texture.NativeImage func_195786_a(net.minecraft.client.renderer.texture.NativeImage image) {
-            return buffer instanceof FakeSkinBuffer ? ((FakeSkinBuffer) buffer).func_195786_a(image) : image;
         }
 
         public BufferedImage parseUserSkin(BufferedImage image) {

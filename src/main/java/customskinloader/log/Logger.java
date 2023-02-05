@@ -1,6 +1,5 @@
 package customskinloader.log;
 
-import javax.annotation.Nullable;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -97,7 +96,7 @@ public class Logger {
      *
      * @since 14.16
      */
-    public Logger(@Nullable Writer writer, String loggerName) {
+    public Logger(Writer writer, String loggerName) {
         this.loggerName = loggerName;
         this.writer = writer;
     }
