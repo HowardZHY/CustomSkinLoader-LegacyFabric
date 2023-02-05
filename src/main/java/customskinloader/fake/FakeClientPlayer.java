@@ -10,71 +10,81 @@ import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
 
 import customskinloader.CustomSkinLoader;
 import customskinloader.utils.MinecraftUtil;
-import net.minecraft.client.texture.PlayerSkinTexture;
-import net.minecraft.client.texture.Texture;
-import net.minecraft.client.texture.ResourceTexture;
-import net.minecraft.client.texture.TextureManager;
-import net.minecraft.client.util.DefaultSkinHelper;
-import net.minecraft.client.texture.PlayerSkinProvider;
-import net.minecraft.client.texture.PlayerSkinProvider.SkinTextureAvailableCallback;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.ChatUtil;
+import net.minecraft.client.renderer.ThreadDownloadImageData;
+import net.minecraft.client.renderer.texture.ITextureObject;
+import net.minecraft.client.renderer.texture.SimpleTexture;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.resources.DefaultPlayerSkin;
+import net.minecraft.client.resources.SkinManager;
+import net.minecraft.client.resources.SkinManager.SkinAvailableCallback;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StringUtils;
 
 public class FakeClientPlayer {
+    /**
+     * Invoked from {@link SkinManager#loadSkin(MinecraftProfileTexture, MinecraftProfileTexture.Type, SkinManager.SkinAvailableCallback)}
+     */
+    public static ThreadDownloadImageData putCache(ThreadDownloadImageData threaddownloadimagedata, SkinManager.SkinAvailableCallback skinAvailableCallback, ResourceLocation resourcelocation) {
+        if (skinAvailableCallback instanceof FakeClientPlayer.LegacyBuffer) {//Cache for client player
+            textureCache.put(resourcelocation, threaddownloadimagedata);
+        }
+        return threaddownloadimagedata;
+    }
+
     //For Legacy Skin
-    public static PlayerSkinTexture getDownloadImageSkin(Identifier resourceLocationIn, String username) {
+    public static ThreadDownloadImageData getDownloadImageSkin(ResourceLocation resourceLocationIn, String username) {
         //CustomSkinLoader.logger.debug("FakeClientPlayer/getDownloadImageSkin "+username);
         TextureManager textman = MinecraftUtil.getTextureManager();
-        Texture ito = textman.getTexture(resourceLocationIn);
+        ITextureObject ito = textman.getTexture(resourceLocationIn);
 
-        if (ito == null || !(ito instanceof PlayerSkinTexture)) {
+        if (ito == null || !(ito instanceof ThreadDownloadImageData)) {
             //if Legacy Skin for username not loaded yet
-            PlayerSkinProvider skinman = MinecraftUtil.getSkinManager();
+            SkinManager skinman = MinecraftUtil.getSkinManager();
             UUID offlineUUID = getOfflineUUID(username);
             GameProfile offlineProfile = new GameProfile(offlineUUID, username);
 
             //Load Default Skin
-            Identifier defaultSkin = DefaultSkinHelper.getTexture(offlineUUID);
-            Texture defaultSkinObj = new ResourceTexture(defaultSkin);
+            ResourceLocation defaultSkin = DefaultPlayerSkin.getDefaultSkin(offlineUUID);
+            ITextureObject defaultSkinObj = new SimpleTexture(defaultSkin);
             textman.loadTexture(resourceLocationIn, defaultSkinObj);
 
             //Load Skin from SkinManager
-            skinman.loadSkin(offlineProfile, (PlayerSkinProvider.SkinTextureAvailableCallback) new LegacyBuffer(resourceLocationIn), false);
+            skinman.loadProfileTextures(offlineProfile, new LegacyBuffer(resourceLocationIn), false);
         }
 
-        if (ito instanceof PlayerSkinTexture)
-            return (PlayerSkinTexture) ito;
+        if (ito instanceof ThreadDownloadImageData)
+            return (ThreadDownloadImageData) ito;
         else
             return null;
     }
 
-    public static Identifier getLocationSkin(String username) {
+    public static ResourceLocation getLocationSkin(String username) {
         //CustomSkinLoader.logger.debug("FakeClientPlayer/getLocationSkin "+username);
-        return new Identifier("skins/legacy-" + ChatUtil.stripTextFormat(username));
+        return new ResourceLocation("skins/legacy-" + StringUtils.stripControlCodes(username));
     }
 
     public static UUID getOfflineUUID(String username) {
         return UUID.nameUUIDFromBytes(("OfflinePlayer:" + username).getBytes());
     }
 
-    public static Map<Identifier, Texture> textureCache = Maps.newHashMap();
+    public static Map<ResourceLocation, ITextureObject> textureCache = Maps.newHashMap();
 
-    public static class LegacyBuffer implements SkinTextureAvailableCallback {
-        Identifier resourceLocationIn;
+    public static class LegacyBuffer implements SkinAvailableCallback {
+        ResourceLocation resourceLocationIn;
         boolean loaded = false;
 
-        public LegacyBuffer(Identifier resourceLocationIn) {
+        public LegacyBuffer(ResourceLocation resourceLocationIn) {
             CustomSkinLoader.logger.debug("Loading Legacy Texture (" + resourceLocationIn + ")");
             this.resourceLocationIn = resourceLocationIn;
         }
 
         @Override
-        public void method_7047(Type typeIn, Identifier location, MinecraftProfileTexture profileTexture) {
+        public void skinAvailable(Type typeIn, ResourceLocation location, MinecraftProfileTexture profileTexture) {
             if (typeIn != Type.SKIN || loaded)
                 return;
 
             TextureManager textman = MinecraftUtil.getTextureManager();
-            Texture ito = textman.getTexture(location);
+            ITextureObject ito = textman.getTexture(location);
             if (ito == null)
                 ito = textureCache.get(location);
             if (ito == null)

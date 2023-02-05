@@ -2,7 +2,7 @@ package customskinloader.fake.texture;
 
 import java.io.InputStream;
 
-import net.minecraft.client.texture.NativeImage;
+import net.minecraft.client.renderer.texture.NativeImage;
 
 public class FakeNativeImage implements FakeImage {
     private NativeImage image;

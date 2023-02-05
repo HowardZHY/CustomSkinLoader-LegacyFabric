@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "id": "customskinloader",
-  "version": "14.14-LF",
+  "version": "14.15b-LF",
   "name": "CustomSkinLoader",
   "description": "Custom Skin Loader for Minecraft",
-  "authors": ["xfl03", "JLChnToZ"],
+  "authors": ["HowardZHY", "xfl03", "JLChnToZ"],
   "contact": {
     "homepage": "https://github.com/xfl03/MCCustomSkinLoader",
     "issues": "https://github.com/xfl03/MCCustomSkinLoader/issues",

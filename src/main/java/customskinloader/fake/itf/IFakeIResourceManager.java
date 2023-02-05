@@ -3,18 +3,18 @@ package customskinloader.fake.itf;
 import java.io.IOException;
 import java.util.Optional;
 
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.Resource;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.resources.IResource;
+import net.minecraft.util.ResourceLocation;
 
 public interface IFakeIResourceManager {
     // 1.13.2 ~ 22w13a
-    default Resource func_199002_a(Identifier location) throws IOException {
-        return (Resource) ((ResourceManager) this).getResource(location);
+    default IResource func_199002_a(ResourceLocation location) throws IOException {
+        return (IResource) ((IResourceManager) this).getResource(location);
     }
 
     // 22w14a+
-    default Optional getResource(Identifier location) throws IOException {
+    default Optional getResource(ResourceLocation location) throws IOException {
         return Optional.ofNullable(this.func_199002_a(location));
     }
 }

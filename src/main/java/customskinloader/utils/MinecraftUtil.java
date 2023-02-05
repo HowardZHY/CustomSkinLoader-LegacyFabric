@@ -1,27 +1,19 @@
 package customskinloader.utils;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Field;
 import java.net.URL;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.texture.TextureManager;
-import net.minecraft.client.texture.PlayerSkinProvider;
-import net.minecraft.realms.RealmsSharedConstants;
-import org.apache.commons.lang3.StringUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.resources.SkinManager;
 
 /**
  * @author Alexander Xia
@@ -29,15 +21,15 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class MinecraftUtil {
     public static File getMinecraftDataDir() {
-        return MinecraftClient.getInstance().runDirectory;
+        return Minecraft.getMinecraft().gameDir;
     }
 
     public static TextureManager getTextureManager() {
-        return MinecraftClient.getInstance().getTextureManager();
+        return Minecraft.getMinecraft().getTextureManager();
     }
 
-    public static PlayerSkinProvider getSkinManager() {
-        return MinecraftClient.getInstance().getSkinProvider();
+    public static SkinManager getSkinManager() {
+        return Minecraft.getMinecraft().getSkinManager();
     }
     private static String minecraftMainVersion = null;
 
@@ -77,10 +69,10 @@ public class MinecraftUtil {
 
     // (domain|ip)(:port)
     public static String getServerAddress() {
-        net.minecraft.client.network.ServerInfo data = MinecraftClient.getInstance().getCurrentServerEntry();
+        ServerData data = Minecraft.getMinecraft().getCurrentServerData();
         if (data == null)//Single Player
             return null;
-        return data.address;
+        return data.serverIP;
     }
 
     // ip:port

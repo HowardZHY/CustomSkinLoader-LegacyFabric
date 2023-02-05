@@ -1,34 +1,34 @@
 package customskinloader.mixin;
 
 import customskinloader.fake.FakeClientPlayer;
-import net.minecraft.client.gui.hud.spectator.TeleportToSpecificPlayerSpectatorCommand;
-import net.minecraft.client.texture.PlayerSkinTexture;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.spectator.PlayerMenuObject;
+import net.minecraft.client.renderer.ThreadDownloadImageData;
+import net.minecraft.util.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(TeleportToSpecificPlayerSpectatorCommand.class)
+@Mixin(PlayerMenuObject.class)
 public abstract class MixinPlayerMenuObject {
     @Redirect(
-        method = "<init>(Lcom/mojang/authlib/GameProfile;)V",
+        method = "Lnet/minecraft/client/gui/spectator/PlayerMenuObject;<init>(Lcom/mojang/authlib/GameProfile;)V",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getSkinId(Ljava/lang/String;)Lnet/minecraft/util/Identifier;"
+            target = "Lnet/minecraft/client/entity/AbstractClientPlayer;getLocationSkin(Ljava/lang/String;)Lnet/minecraft/util/ResourceLocation;"
         )
     )
-    private Identifier redirect_init(String username) {
+    private ResourceLocation redirect_init(String username) {
         return FakeClientPlayer.getLocationSkin(username);
     }
 
     @Redirect(
-        method = "<init>(Lcom/mojang/authlib/GameProfile;)V",
+        method = "Lnet/minecraft/client/gui/spectator/PlayerMenuObject;<init>(Lcom/mojang/authlib/GameProfile;)V",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;loadSkin(Lnet/minecraft/util/Identifier;Ljava/lang/String;)Lnet/minecraft/client/texture/PlayerSkinTexture;"
+            target = "Lnet/minecraft/client/entity/AbstractClientPlayer;getDownloadImageSkin(Lnet/minecraft/util/ResourceLocation;Ljava/lang/String;)Lnet/minecraft/client/renderer/ThreadDownloadImageData;"
         )
     )
-    private PlayerSkinTexture redirect_init(Identifier resourceLocationIn, String username) {
+    private ThreadDownloadImageData redirect_init(ResourceLocation resourceLocationIn, String username) {
         return FakeClientPlayer.getDownloadImageSkin(resourceLocationIn, username);
     }
 }

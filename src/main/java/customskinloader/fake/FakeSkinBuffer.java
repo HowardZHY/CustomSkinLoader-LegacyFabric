@@ -8,23 +8,40 @@ import customskinloader.CustomSkinLoader;
 import customskinloader.fake.texture.FakeBufferedImage;
 import customskinloader.fake.texture.FakeImage;
 import customskinloader.fake.texture.FakeNativeImage;
-import net.minecraft.client.render.BufferedImageSkinProvider;
-import net.minecraft.client.texture.NativeImage;
+import net.minecraft.client.renderer.IImageBuffer;
+import net.minecraft.client.renderer.texture.NativeImage;
 
-public class FakeSkinBuffer implements BufferedImageSkinProvider {
+public class FakeSkinBuffer implements IImageBuffer {
     private int ratio = 1;
     FakeImage image = null;
 
     //parseUserSkin for 1.15+
+    public static NativeImage processLegacySkin(NativeImage image, Runnable processTask, Function<NativeImage, NativeImage> processLegacySkin) {
+        if (processTask instanceof IImageBuffer) {
+            return ((IImageBuffer) processTask).func_195786_a(image);
+        }
+        return processLegacySkin.apply(image);
+    }
 
     //parseUserSkin for 1.13+
-
-    //parseUserSkin for 1.12.2-
-    public BufferedImage parseSkin(BufferedImage image) {
+    public NativeImage func_195786_a(NativeImage image) {
         if (image == null)
             return null;
 
-        FakeImage img = parseSkin(new FakeBufferedImage(image));
+        FakeImage img = parseUserSkin(new FakeNativeImage(image));
+        if (img instanceof FakeNativeImage)
+            return ((FakeNativeImage) img).getImage();
+
+        CustomSkinLoader.logger.warning("Failed to parseUserSkin(func_195786_a).");
+        return null;
+    }
+
+    //parseUserSkin for 1.12.2-
+    public BufferedImage parseUserSkin(BufferedImage image) {
+        if (image == null)
+            return null;
+
+        FakeImage img = parseUserSkin(new FakeBufferedImage(image));
         if (img instanceof FakeBufferedImage)
             return ((FakeBufferedImage) img).getImage();
 
@@ -32,7 +49,7 @@ public class FakeSkinBuffer implements BufferedImageSkinProvider {
         return null;
     }
 
-    public FakeImage parseSkin(FakeImage image) {
+    public FakeImage parseUserSkin(FakeImage image) {
         if (image == null) return null;
         this.ratio = image.getWidth() / 64;
 
@@ -155,14 +172,8 @@ public class FakeSkinBuffer implements BufferedImageSkinProvider {
             setAreaOpaque(x0, y0, x1, y1);
     }
 
-    @Override
-    public void setAvailable() {
+    public void skinAvailable() {
         //A callback when skin loaded, nothing to do
-    }
-
-    @Override
-    public void run() {
-        BufferedImageSkinProvider.super.run();
     }
 
     private static int getARGB(int a, int r, int g, int b) {

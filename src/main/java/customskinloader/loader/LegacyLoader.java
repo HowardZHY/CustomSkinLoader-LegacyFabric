@@ -1,11 +1,11 @@
 package customskinloader.loader;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 import customskinloader.CustomSkinLoader;
 import customskinloader.config.SkinSiteProfile;
@@ -24,7 +24,12 @@ public class LegacyLoader implements ICustomSkinLoaderPlugin, ProfileLoader.IPro
 
     @Override
     public List<IDefaultProfile> getDefaultProfiles() {
-        return Collections.singletonList(new LocalSkin(this));
+        return Lists.newArrayList(new LocalSkin(this),
+                getCapeProfile(this, "OptiFine", "https://optifine.net/capes/{USERNAME}.png", 810),
+                getCapeProfile(this, "CloakPlus", "http://161.35.130.99/capes/{USERNAME}.png", 840),
+                getCapeProfile(this, "LabyMod", "https://dl.labymod.net/capes/{STANDARD_UUID}", 850),
+                getCapeProfile(this, "Cosmetica", "https://api.cosmetica.cc/get/cloak?username={USERNAME}&uuid={STANDARD_UUID}&nothirdparty", 860)
+                );
     }
 
     public abstract static class DefaultProfile implements ICustomSkinLoaderPlugin.IDefaultProfile {
@@ -75,7 +80,7 @@ public class LegacyLoader implements ICustomSkinLoaderPlugin, ProfileLoader.IPro
 
         @Override
         public int getPriority() {
-            return 600;
+            return 710;
         }
 
         @Override
@@ -94,18 +99,48 @@ public class LegacyLoader implements ICustomSkinLoaderPlugin, ProfileLoader.IPro
         }
     }
 
-    // // Minecrack could not load skin correctly
-    // public static class Minecrack extends LegacyLoader.DefaultProfile {
-    //     public Minecrack(LegacyLoader loader)   { super(loader); }
-    //     @Override public String getName()       { return "Minecrack"; }
-    //     @Override public int getPriority()      { return 600; }
-    //     @Override public String getSkinRoot()   { return "http://minecrack.fr.nf/mc/skinsminecrackd/{USERNAME}.png"; }
-    //     @Override public String getCapeRoot()   { return "http://minecrack.fr.nf/mc/cloaksminecrackd/{USERNAME}.png"; }
-    //     @Override public String getElytraRoot() { return null; }
-    // }
+    /**
+     * Get cape Profile¬
+     *
+     * @since 14.16
+     */
+    public static LegacyLoader.DefaultProfile getCapeProfile(LegacyLoader loader, String name, String capeRoot, int priority) {
+        return new DefaultProfile(loader) {
+            @Override
+            public String getSkinRoot() {
+                return null;
+            }
+
+            @Override
+            public String getCapeRoot() {
+                return capeRoot;
+            }
+
+            @Override
+            public String getElytraRoot() {
+                return null;
+            }
+
+            @Override
+            public String getName() {
+                return name;
+            }
+
+            @Override
+            public int getPriority() {
+                return priority;
+            }
+        };
+    }
 
     public static final String USERNAME_PLACEHOLDER = "{USERNAME}";
     public static final String UUID_PLACEHOLDER = "{UUID}";
+    /**
+     * Mojang UUID with -
+     *
+     * @since 14.16
+     */
+    public static final String STANDARD_UUID_PLACEHOLDER = "{STANDARD_UUID}";
 
     @Override
     public UserProfile loadProfile(SkinSiteProfile ssp, GameProfile gameProfile) {
@@ -187,14 +222,15 @@ public class LegacyLoader implements ICustomSkinLoaderPlugin, ProfileLoader.IPro
 
     private String expandURL(String url, String username) {
         String t = url.replace(USERNAME_PLACEHOLDER, username);
-        if (!t.contains(UUID_PLACEHOLDER)) {
+        if (!t.contains(UUID_PLACEHOLDER) && !t.contains(STANDARD_UUID_PLACEHOLDER)) {
             return t;
         }
-        String uuid = MojangAPILoader.getMojangUuidByUsername(username);
+        String uuid = MojangAPILoader.getMojangUuidByUsername(username, true);
         //If Mojang uuid not found, won't load the texture
         if (uuid == null) {
             return null;
         }
-        return t.replace(UUID_PLACEHOLDER, uuid);
+        String styledUuid = uuid.replace("-", "");
+        return t.replace(UUID_PLACEHOLDER, styledUuid).replace(STANDARD_UUID_PLACEHOLDER, uuid);
     }
 }

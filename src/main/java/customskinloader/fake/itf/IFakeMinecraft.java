@@ -1,15 +1,11 @@
 package customskinloader.fake.itf;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.resource.ResourceManager;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.IResourceManager;
 
 public interface IFakeMinecraft {
     // 1.13.2+
-    default ResourceManager getResourceManager() {
-        return (ResourceManager) ((MinecraftClient) this).getResourceManager();
-    }
-    // 1.14+
-    default void execute(Runnable runnable) {
-        ((MinecraftClient) this).submit(runnable);
+    default IResourceManager func_195551_G() {
+        return (IResourceManager) ((Minecraft) this).getResourceManager();
     }
 }
