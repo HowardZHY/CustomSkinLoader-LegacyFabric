@@ -57,6 +57,27 @@ public class CustomSkinAPI implements JsonAPILoader.IJsonAPI {
         }
     }
 
+    public static class RedstoneSkin extends JsonAPILoader.DefaultProfile {
+        public RedstoneSkin(JsonAPILoader loader) {
+            super(loader);
+        }
+
+        @Override
+        public String getName() {
+            return "RedstoneSkin";
+        }
+
+        @Override
+        public int getPriority() {
+            return 350;
+        }
+
+        @Override
+        public String getRoot() {
+            return "https://mcskin.cn/";
+        }
+    }
+
     // // OneSkin has been removed temporarily
     // public static class OneSkin extends JsonAPILoader.DefaultProfile {
     //     public OneSkin(JsonAPILoader loader) { super(loader); }
@@ -70,7 +91,7 @@ public class CustomSkinAPI implements JsonAPILoader.IJsonAPI {
 
     @Override
     public List<ICustomSkinLoaderPlugin.IDefaultProfile> getDefaultProfiles(JsonAPILoader loader) {
-        return Lists.newArrayList(new LittleSkin(loader), new BlessingSkin(loader));
+        return Lists.newArrayList(new LittleSkin(loader), new BlessingSkin(loader), new RedstoneSkin(loader));
     }
 
     @Override
