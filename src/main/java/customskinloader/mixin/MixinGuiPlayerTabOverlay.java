@@ -11,8 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class MixinGuiPlayerTabOverlay {
     @Redirect(
         method = {
-            "Lnet/minecraft/client/gui/GuiPlayerTabOverlay;renderPlayerlist(ILnet/minecraft/scoreboard/Scoreboard;Lnet/minecraft/scoreboard/ScoreObjective;)V",
-            "Lnet/minecraft/client/gui/GuiPlayerTabOverlay;renderPlayerlist(Lcom/mojang/blaze3d/matrix/MatrixStack;ILnet/minecraft/scoreboard/Scoreboard;Lnet/minecraft/scoreboard/ScoreObjective;)V"
+                "renderPlayerlist(ILnet/minecraft/scoreboard/Scoreboard;Lnet/minecraft/scoreboard/ScoreObjective;)V"
         },
         at = @At(
             value = "INVOKE",

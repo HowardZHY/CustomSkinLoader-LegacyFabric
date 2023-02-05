@@ -1,45 +1,24 @@
 package customskinloader.fabric;
 
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import customskinloader.Logger;
+import customskinloader.log.LogManager;
+import customskinloader.log.Logger;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public class MixinConfigPlugin implements IMixinConfigPlugin {
-    public static Logger logger = new Logger(new File("./CustomSkinLoader/FabricPlugin.log"));
-
+    public static Logger logger = LogManager.getLogger("Fabric");
     private long world_version;
     private long protocol_version;
 
     @Override
     public void onLoad(String mixinPackage) {
-        URL versionJson = this.getClass().getResource("/version.json");
-        if (versionJson != null) {
-            logger.info("\"version.json\": " + versionJson.toString());
-            try (
-                InputStream is = versionJson.openStream();
-                InputStreamReader isr = new InputStreamReader(is)
-            ) {
-                JsonObject object = new JsonParser().parse(isr).getAsJsonObject();
-                String name = object.get("name").getAsString();
-                this.protocol_version = object.get("protocol_version").getAsLong();
-                logger.info("MinecraftVersion: {name='" + name + "' + protocol_version='" + this.protocol_version + "'}");
-            } catch (Throwable t) {
-                logger.warning("An exception occurred when reading \"version.json\"!");
-                logger.warning(t);
-            }
-        } else {
-            logger.warning("CSL is loading on LF.");
-        }
+        LogManager.setLogFile(Paths.get("./CustomSkinLoader/CustomSkinLoader.log"));
+        logger.warning("Your start is earlier than 18w47b.");
     }
 
     @Override

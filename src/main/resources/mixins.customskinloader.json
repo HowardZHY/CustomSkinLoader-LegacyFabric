@@ -1,6 +1,6 @@
 {
   "compatibilityLevel": "JAVA_8",
-  "mixinPriority": 1010,
+  "mixinPriority": 1020,
   "package": "customskinloader.mixin",
   "client": [
     "MixinGuiPlayerTabOverlay",
@@ -9,10 +9,12 @@
     "MixinMinecraft",
     "MixinPlayerMenuObject",
     "MixinSkinManager",
-    "MixinTextureManager",
+    "MixinSkinManager$3",
+    "MixinSkinManager$3$1",
     "MixinThreadDownloadImageDataV1"
   ],
   "refmap": "customskinloader-refmap.json",
+  "plugin": "customskinloader.fabric.MixinConfigPlugin",
   "injectors": {
     "defaultRequire": 1
   }

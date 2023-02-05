@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(PlayerMenuObject.class)
 public abstract class MixinPlayerMenuObject {
     @Redirect(
-        method = "Lnet/minecraft/client/gui/spectator/PlayerMenuObject;<init>(Lcom/mojang/authlib/GameProfile;)V",
+        method = "<init>(Lcom/mojang/authlib/GameProfile;)V",
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/client/entity/AbstractClientPlayer;getLocationSkin(Ljava/lang/String;)Lnet/minecraft/util/ResourceLocation;"
@@ -22,7 +22,7 @@ public abstract class MixinPlayerMenuObject {
     }
 
     @Redirect(
-        method = "Lnet/minecraft/client/gui/spectator/PlayerMenuObject;<init>(Lcom/mojang/authlib/GameProfile;)V",
+        method = "<init>(Lcom/mojang/authlib/GameProfile;)V",
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/client/entity/AbstractClientPlayer;getDownloadImageSkin(Lnet/minecraft/util/ResourceLocation;Ljava/lang/String;)Lnet/minecraft/client/renderer/ThreadDownloadImageData;"
