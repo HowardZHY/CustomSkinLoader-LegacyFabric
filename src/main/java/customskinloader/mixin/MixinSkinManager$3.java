@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.SkinManager;
 import net.minecraft.client.resources.SkinManager$3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
@@ -22,11 +23,11 @@ public abstract class MixinSkinManager$3 extends SkinManager implements Runnable
     }
 
     @Redirect(
-            method = "Lnet/minecraft/client/resources/SkinManager$3;run()V",
+            method = "run()V",
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/mojang/authlib/minecraft/MinecraftSessionService;getTextures(Lcom/mojang/authlib/GameProfile;Z)Ljava/util/Map;",
-                    ordinal = 0
+                    ordinal = 0, remap = false
             )
     )
     private Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> redirect_run(MinecraftSessionService sessionService, GameProfile profile, boolean requireSecure) {
