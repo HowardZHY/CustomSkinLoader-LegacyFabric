@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(SkinManager.class)
 public abstract class MixinSkinManager {
-    private FakeSkinManager fakeManager;
+    public FakeSkinManager fakeManager;
 
     @Inject(
         method = "<init>(Lnet/minecraft/client/renderer/texture/TextureManager;Ljava/io/File;Lcom/mojang/authlib/minecraft/MinecraftSessionService;)V",
