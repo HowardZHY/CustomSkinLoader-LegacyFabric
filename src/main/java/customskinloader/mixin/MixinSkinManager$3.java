@@ -19,8 +19,7 @@ public abstract class MixinSkinManager$3 {
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/mojang/authlib/minecraft/MinecraftSessionService;getTextures(Lcom/mojang/authlib/GameProfile;Z)Ljava/util/Map;",
-                    ordinal = 0,
-                    remap = false
+                    ordinal = 0
             )
     )
     private Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> redirect_run(MinecraftSessionService sessionService, GameProfile profile, boolean requireSecure) {
