@@ -15,8 +15,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 // For 1.12.2-
-@Mixin(SkinManager$3.class)
-public abstract class MixinSkinManager$3 extends SkinManager {
+@Mixin(targets = "net.minecraft.client.resources.SkinManager$3")
+public abstract class MixinSkinManager$3 extends SkinManager implements Runnable{
     public MixinSkinManager$3(TextureManager textureManagerInstance, File skinCacheDirectory, MinecraftSessionService sessionService) {
         super(textureManagerInstance, skinCacheDirectory, sessionService);
     }
